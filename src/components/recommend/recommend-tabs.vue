@@ -10,15 +10,27 @@
 </template>
 
 <script type="text/javascript">
+import axios from 'axios'
 export default {
   data () {
     return {
-      tabsData: [
-        {name: '私人FM', picUrl: require('@/assets/1.png')},
-        {name: '每日推荐', picUrl: require('@/assets/2.png')},
-        {name: '歌单', picUrl: require('@/assets/3.png')},
-        {name: '排行榜', picUrl: require('@/assets/4.png')}
-      ]
+      tabsData: []
+    }
+  },
+  mounted () {
+    this.getData()
+  },
+  methods: {
+    getData: function () {
+      const url = '/api/test'
+      axios.get(url).then((res) => {
+        if (res.data.code === 0) {
+          this.tabsData = res.data.tabsData.tabsData
+          this.tabsData.forEach(function (item) {
+            item.picUrl = require('@/assets' + item.picUrl)
+          })
+        }
+      })
     }
   }
 }

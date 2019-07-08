@@ -1,6 +1,6 @@
 <template>
   <div class="mt-1">
-    <div class="song-list" v-if="songList">
+    <div class="song-list" v-if="songList.length">
       <div class="song-list-title mt-1">推荐歌单</div>
       <div v-for="(item, index) in songList" :key="index" class="song-list-item">
         <div>

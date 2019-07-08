@@ -1,6 +1,6 @@
 /* eslint-enable */
 <template>
-  <div class="row mt-1 content-opts-nav">
+  <div class="row content-opts-nav">
     <router-link tag="div" class="col-4 text-center p-1" to="/recommend">
       <span>推荐</span>
     </router-link>

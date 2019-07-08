@@ -1,12 +1,13 @@
 <template>
   <div class="recommend">
-    <Scroll class="recommend-content" :getData="getData">
+    <scroll class="recommend-content" :getData="getData">
       <div>
-        <Slider :recommendSlider="recommendSlider"></Slider>
+        <slider :recommendSlider="recommend.slider"></slider>
         <recommend-tabs></recommend-tabs>
         <song-list></song-list>
+        <radio-list :recommendRadio="recommend.radioList"></radio-list>
       </div>
-    </Scroll>
+    </scroll>
   </div>
 </template>
 
@@ -16,37 +17,34 @@ import Scroll from '@/base/scroll'
 import Slider from 'components/recommend/slider'
 import RecommendTabs from 'components/recommend/recommend-tabs'
 import SongList from 'components/recommend/song-list'
+import RadioList from 'components/recommend/radio-list'
 
 export default {
   components: {
     Slider,
     RecommendTabs,
     SongList,
-    Scroll
+    Scroll,
+    RadioList
   },
   data () {
     return {
-      recommendSlider: [],
-      recommendRadio: [],
+      recommend: [],
       getData: null
     }
   },
   created () {
     this._getCommend()
   },
-  mounted () {
-
-  },
   methods: {
     _getCommend: function () {
       getRecommend().then((res) => {
-        this.recommendSlider = res.data.slider
-        this.recommendRadio = res.data.radioList
+        this.recommend = res.data
       })
     }
   },
   watch: {
-    recommendSlider () {
+    recommend () {
       this.getData = true
     }
   }

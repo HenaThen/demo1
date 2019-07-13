@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     getData: function () {
-      const url = '/api/test'
+      const url = '/api/recommendTaps'
       axios.get(url).then((res) => {
         if (res.data.code === 0) {
           this.tabsData = res.data.tabsData.tabsData

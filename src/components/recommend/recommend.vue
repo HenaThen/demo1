@@ -55,7 +55,7 @@ export default {
  @import '~common/stylus/variable'
  .recommend
   position: fixed
-  top: 72px
+  top: 74px
   bottom: 0
   background: $color-theme-background = #f4f4f4
   .recommend-content

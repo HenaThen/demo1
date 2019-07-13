@@ -38,24 +38,50 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       ],
     },
     before (app) {
-      app.get('/api/test', (req, res) => {
+      app.get('/api/recommendTaps', (req, res) => {
         res.json({
           code: 0,
           tabsData: data
         })
       })
       app.get('/api/songList', (req, res) => {
-        var url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
+        const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
         axios.get(url, {
-          header: {
-            referer: 'https://c.y.qq.com/',
-            host: 'c.y.qq.com'
+          headers: {
+            referer: 'https://y.qq.com/m/index.html',
+            origin: 'https://y.qq.com'
           },
           param: req.query
         }).then((response) => {
           res.json(response.data)
         }).catch((e) => {
           console.log(e)
+        })
+      })
+      app.get('/api/singerList', (req,res) => {
+        const url = 'https://c.y.qq.com/v8/fcg-bin/v8.fcg'
+        axios.get(url, {
+          headers: {
+            referer: 'https://c.y.qq.com/',
+            host: 'c.y.qq.com'
+          },
+          params: req.query
+        }).then((response) => {
+          res.json(response.data)
+        }).catch((e) => {
+          console.log(e)
+        })
+      })
+      app.get('/api/test', (req, res) => {
+        const url = 'https://u.y.qq.com/cgi-bin/musicu.fcg'
+        axios.get(url, {
+          headers: {
+            referer: 'https://y.qq.com',
+            host: 'u.y.qq.com'
+          },
+          params: req.query
+        }).then((response) => {
+          res.json(response.data)
         })
       })
     },

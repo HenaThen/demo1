@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-1">
+  <div class="mt-1 mb-4">
     <div class="song-list" v-if="songList.length">
       <div class="song-list-title mt-1">推荐歌单</div>
       <div v-for="(item, index) in songList" :key="index" class="song-list-item">
@@ -15,7 +15,7 @@
 </template>
 
 <script type="text/javascript">
-import {getRecommend2} from 'api/recommend'
+import {getRecommend} from 'api/recommend'
 export default {
   data () {
     return {
@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     _getSongList: function () {
-      getRecommend2().then((res) => {
+      getRecommend().then((res) => {
         if (res.code === 0) {
           this.songList = res.data.songList
         }

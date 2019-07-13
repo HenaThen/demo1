@@ -4,8 +4,8 @@
     <router-link tag="div" class="col-4 text-center p-1" to="/recommend">
       <span>推荐</span>
     </router-link>
-    <router-link tag="div" class="col-4 text-center p-1" to="/hot">
-      <span>热门</span>
+    <router-link tag="div" class="col-4 text-center p-1" to="/singer">
+      <span>歌手</span>
     </router-link>
     <router-link tag="div" class="col-4 text-center p-1" to="/radio">
       <span>电台</span>
@@ -20,12 +20,12 @@ export default {}
 <style scoped="" lang="stylus" rel="stylesheet/stylue">
  @import "~common/stylus/variable"
  .content-opts-nav
-  box-shadow: 0px 1px 1px #ddd
-  button
-   border: none
+  div
+   box-shadow: 0px 1px 0px #ddd
    background: none
  .row
   margin: $margin-0
  &.router-link-active
   color: $color-red
+  border-bottom: 2px solid $color-red
 </style>

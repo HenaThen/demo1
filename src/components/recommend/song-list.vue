@@ -1,6 +1,6 @@
 <template>
   <div class="mt-1 mb-4">
-    <div class="song-list" v-if="songList.length">
+    <div class="song-list">
       <div class="song-list-title mt-1">推荐歌单</div>
       <div v-for="(item, index) in songList" :key="index" class="song-list-item">
         <div>
@@ -15,25 +15,19 @@
 </template>
 
 <script type="text/javascript">
-import {getRecommend} from 'api/recommend'
 export default {
+  props: {
+    recommendSongList: {}
+  },
   data () {
     return {
-      songList: []
+      songList: this.recommendSongList
     }
   },
   mounted () {
-    this._getSongList()
+    this.changeAccessNum()
   },
   methods: {
-    _getSongList: function () {
-      getRecommend().then((res) => {
-        if (res.code === 0) {
-          this.songList = res.data.songList
-        }
-        this.changeAccessNum()
-      })
-    },
     changeAccessNum: function () {
       this.songList.forEach(function (item) {
         var _accessnum = 0
@@ -57,7 +51,6 @@ export default {
     margin-left: 1.75%
    .song-list-item
     position: relative
-    background: $color-sub-theme
     min-width: 0
     display: inline-flex
     width: 31%

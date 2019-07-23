@@ -21,8 +21,7 @@ export default {}
  @import "~common/stylus/variable"
  .content-opts-nav
   div
-   box-shadow: 0px 1px 0px #ddd
-   background: none
+   box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5)
  .row
   margin: $margin-0
  &.router-link-active

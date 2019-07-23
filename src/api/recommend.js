@@ -2,7 +2,7 @@ import axios from 'axios'
 import {apiCommonParam} from 'api/config'
 
 export function getRecommend () {
-  const url = '/api/songList'
+  const url = '/api/recommend'
   const data = Object.assign({}, apiCommonParam, {
     uin: 0,
     platform: 'h5',

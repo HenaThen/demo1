@@ -11,25 +11,30 @@
         <li class="nav-item">搜索</li>
       </ul>
     </nav>
+    <tabs></tabs>
   </header>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
+import Tabs from 'components/m-header/tabs'
 export default {
   data () {
     return {
       title: '万象枝桠'
     }
+  },
+  components: {
+    Tabs
   }
 }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
  @import "~common/stylus/variable"
-
  .m-header
+  width: 100%
   color: $color-whtie
-  background: $color-red
+  background: $color-background-d
   .tabs
    display: inline-block
 </style>

@@ -47,7 +47,7 @@ export default {
    padding:0 0 25% 0
    overflow: hidden
    .yuan
-    border: 2px solid #707070;
+    border: 2px solid rgba(255, 255, 255, 0.9);
     width: 3.5rem
     height: 3.5rem
     border-radius: 50%

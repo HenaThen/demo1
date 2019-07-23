@@ -8,6 +8,16 @@
 import BScroll from 'better-scroll'
 
 export default {
+  props: {
+    probeType: {
+      type: Number,
+      default: 0
+    },
+    listenScroll: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       changeValue: 0,
@@ -26,9 +36,14 @@ export default {
   },
   methods: {
     _initScroll: function () {
-      this.srcoll = new BScroll(this.$refs.wrapper, {
-        probeType: 1
+      this.scroll = new BScroll(this.$refs.wrapper, {
+        probeType: this.probeType
       })
+      if (this.listenScroll) {
+        this.scroll.on('scroll', (pos) => {
+          this.$emit('scroll', pos)
+        })
+      }
     },
     refresh () {
       this.scroll && this.scroll.refresh()

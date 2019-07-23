@@ -25,13 +25,13 @@ export default {
  .radio-list
   border-top: 1px solid #ccc
   margin: 0 1.75%
+  margin-bottom: 20px
   .radio-list-content
    display: flex
    .radio-list-item
     width: 47.5%
     display: inline-flex
     div
-     background: $color-whtie
      box-shadow: 1px 1px 3px #ccc
     img
      border-radius: 0.3rem

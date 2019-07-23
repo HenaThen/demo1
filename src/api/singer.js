@@ -1,26 +1,6 @@
 import axios from 'axios'
 import {apiCommonParam, ERR_OK} from 'api/config'
 
-// 旧的歌手数据接口
-export function getSingerList () {
-  let data = Object.assign({}, apiCommonParam, {
-    channel: 'singer',
-    page: 'list',
-    key: 'all_all_all',
-    pagesize: 100,
-    pagenum: 1,
-    hostUin: 0,
-    needNewCode: 0,
-    platform: 'yqq'
-  })
-  const url = '/api/singerList'
-  return axios.get(url, {
-    params: data
-  }).then((res) => {
-    return res.data
-  })
-}
-
 // 新的歌手数据接口
 export function newGetSingerList () {
   let data = Object.assign({}, apiCommonParam, {
@@ -53,6 +33,30 @@ export function newGetSingerList () {
   }).then((res) => {
     if (res.data.code === ERR_OK) {
       return res.data.singerList
+    }
+  })
+}
+
+// 获取歌手详情
+export function getSingerDetail (singerMid) {
+  const url = '/app/singerDetail'
+
+  const data = Object.assign({}, apiCommonParam, {
+    hostUin: 0,
+    needNewCode: 0,
+    platform: 'yqq',
+    order: 'listen',
+    begin: 0,
+    num: 80,
+    songstatus: 1,
+    singermid: singerMid
+  })
+
+  return axios.get(url, {
+    params: data
+  }).then((res) => {
+    if (res.data.code === ERR_OK) {
+      return res.data.data
     }
   })
 }

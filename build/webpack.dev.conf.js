@@ -44,7 +44,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           tabsData: data
         })
       })
-      app.get('/api/songList', (req, res) => {
+      app.get('/api/recommend', (req, res) => {
         const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
         axios.get(url, {
           headers: {
@@ -72,12 +72,38 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           console.log(e)
         })
       })
+      app.get('/app/singerDetail', (req, res) => {
+        const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg'
+        axios.get(url, {
+          headers: {
+            referer: 'https://c.y.qq.com/',
+            host: 'c.y.qq.com'
+          },
+          params: req.query
+        }).then((response) => {
+          res.json(response.data)
+        }).catch((e) => {
+          console.log(e)
+        })
+      })
       app.get('/api/test', (req, res) => {
         const url = 'https://u.y.qq.com/cgi-bin/musicu.fcg'
         axios.get(url, {
           headers: {
             referer: 'https://y.qq.com',
             host: 'u.y.qq.com'
+          },
+          params: req.query
+        }).then((response) => {
+          res.json(response.data)
+        })
+      })
+      app.get('/api/album', (req, res) => {
+        const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_album_info_cp.fcg'
+        axios.get(url, {
+          headers: {
+            referer: 'https://c.y.qq.com',
+            host: 'c.y.qq.com'
           },
           params: req.query
         }).then((response) => {

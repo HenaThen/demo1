@@ -1,22 +1,33 @@
 <template>
   <div id="app">
-    <m-header></m-header>
-    <Tabs></Tabs>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
+    <div class="content-view">
+      <m-header></m-header>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </div>
   </div>
 </template>
 
 <script>
 import MHeader from 'components/m-header/m-header'
-import Tabs from 'components/tabs/tabs'
 
 export default {
   components: {
-    MHeader,
-    Tabs
+    MHeader
   }
 }
-
 </script>
+
+<style scoped lang="stylus" ref="stylesheet/stylus">
+@import "~common/stylus/variable"
+
+.content-view
+ position: fixed
+ top: 0
+ left: 0
+ right: 0
+ bottom: 0
+ background-image: url("./assets/bg-1.jpg")
+ z-index: 2
+</style>

@@ -1,110 +1,154 @@
 <template>
-  <div>
-    <div v-for="(classify, index) in singerList" :key="index">
-      <h4>{{ classify.title }}</h4>
-      <div v-for="(item, index) in classify.list" :key="index">
-        {{ item.name}}
+  <div :class="['singer']">
+    <loading v-show="!getData"></loading>
+    <scroll :getData="getData" class="singer-content">
+      <div>
+        <div v-for="(classify, index) in newSingerList" :key="index">
+          <h5 :class="['group-title']">{{ classify.title }}</h5>
+          <div @click="selectItem(item)" v-for="(item, index) in classify.list" :key="index" :class="['singer-item']">
+            <div>
+              <img :src="item.singer_pic" class="singer-img" width="88px">
+              <span :class="['singer-name']">{{ item.singer_name }}</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
 <script type="text/javascript">
-import {getSingerList, newGetSingerList} from 'api/singer'
+import Loading from '@/base/loading'
+import {newGetSingerList} from 'api/singer'
 import {ERR_OK} from 'api/config'
-import Singer from 'common/js/singer'
-
-const HOT_NAME = '热门'
-const HOT_LIST_LEN = 10
-const SPECIAL_NAME = '*'
+import Scroll from '@/base/scroll'
+import {mapMutations} from 'vuex'
 
 export default {
+  components: {
+    Scroll,
+    Loading
+  },
   data () {
     return {
-      singerList: [],
-      newSingerList: []
+      newSingerList: [],
+      getData: false
     }
   },
   mounted () {
-    this._getSingerList()
     this._getNewSingerList()
   },
   methods: {
-    _getSingerList: function () {
-      getSingerList().then((res) => {
-        if (res.code === ERR_OK) {
-          this.singerList = this.processSingerList(res.data.list)
-        }
+    selectItem: function (item) {
+      this.$router.push({
+        path: `/singer/${item.singer_id}`
       })
+      this.setSinger(item)
     },
     _getNewSingerList: function () {
       newGetSingerList().then((res) => {
         if (res.code === ERR_OK) {
-          this.newSingerList = res.data
-          console.log(this.newSingerList)
+          this.newSingerList = this.processSingerList(res.data.singerlist)
         }
       })
     },
     processSingerList: function (list) {
+      const HOT_NAME = '热门'
+      const USA = '欧美'
+      const JPKR = '日韩'
+      const HKTW = '港台'
+      const PRC = '内地'
+      const OTHER = '其他'
+      const HOT_LIST_LEN = 10
+      const RegUSA = /加拿大|荷兰|澳大利亚|英国|美国/
+      const RegJPKR = /日本|韩国/
+      const RegHKTW = /香港|台湾/
+      const RegPRC = /内地/
+
       let map = {
-        hot: {
+        HOT_NAME: {
           title: HOT_NAME,
           list: []
         },
-        special: {
-          title: SPECIAL_NAME,
+        PRC: {
+          title: PRC,
+          list: []
+        },
+        HKTW: {
+          title: HKTW,
+          list: []
+        },
+        USA: {
+          title: USA,
+          list: []
+        },
+        JPKR: {
+          title: JPKR,
+          list: []
+        },
+        OTHER: {
+          title: OTHER,
           list: []
         }
       }
-
-      list.forEach((item, index) => {
-        if (index < HOT_LIST_LEN) {
-          map.hot.list.push(new Singer(item.Fsinger_id, item.Fsinger_name, item.Fsinger_mid))
-        }
-
-        if (!map[item.Findex]) {
-          if (!item.Findex.match(/[0-9]/)) {
-            map[item.Findex] = {
-              title: item.Findex,
-              list: []
-            }
-          }
-        }
-
-        if (item.Findex.match(/[0-9]/)) {
-          map.special.list.push(new Singer(item.Fsinger_id, item.Fsinger_name, item.Fsinger_mid))
+      for (let k in list) {
+        let item = list[k]
+        if (item.country.match(RegUSA)) {
+          map.USA.list.push(item)
+        } else if (item.country.match(RegJPKR)) {
+          map.JPKR.list.push(item)
+        } else if (item.country.match(RegHKTW)) {
+          map.HKTW.list.push(item)
+        } else if (item.country.match(RegPRC)) {
+          map.PRC.list.push(item)
         } else {
-          map[item.Findex].list.push(new Singer(item.Fsinger_id, item.Fsinger_name, item.Fsinger_mid))
+          map.OTHER.list.push(item)
         }
-      })
 
-      let hot = []
-      let common = []
-      let special = []
-      for (let k in map) {
-        let item = map[k]
-        if (item.title === HOT_NAME) {
-          hot.push(item)
-        } else if (item.title.match(/[a-zA-Z]/)) {
-          common.push(item)
-        } else {
-          special.push(item)
+        if (k < HOT_LIST_LEN) {
+          map.HOT_NAME.list.push(item)
         }
       }
-      common.sort((a, b) => {
-        if (a.title.charCodeAt(0) > b.title.charCodeAt(0)) {
-          return 1
-        } else {
-          return -1
-        }
-      })
-      return hot.concat(common, special)
-    }
+
+      return map
+    },
+    ...mapMutations({
+      setSinger: 'setSinger'
+    })
   },
   watch: {
-    singerList: function () {
-      console.log(this.singerList)
+    newSingerList: function () {
+      this.getData = true
     }
   }
 }
 </script>
+
+<style scoped lang="stylus" ref="stylesheet/stylus">
+@import "~common/stylus/variable"
+.singer
+ background: $color-background-d
+ position: fixed
+ width: 100%
+ top: 74px
+ bottom: 0
+ .singer-content
+  position: relative
+  width: 100%
+  height: 100%
+  overflow: hidden
+  .group-title
+   padding: 0.5rem
+   padding-left: 1rem
+   background: $color-background-d
+   color: $color-text-ll
+  .singer-item
+   padding: 0.7rem 1rem
+   .singer-name
+    margin-left: 0.9rem
+    font-size: 1.1rem
+    color: $color-text-ll
+   .singer-img
+    border-radius: 50%
+</style>

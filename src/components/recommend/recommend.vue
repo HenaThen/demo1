@@ -1,17 +1,21 @@
 <template>
   <div class="recommend">
-    <scroll class="recommend-content" :getData="getData">
+    <loading v-show="!getData"></loading>
+    <scroll v-if="getData" class="recommend-content" :getData="getData">
       <div>
         <slider :recommendSlider="recommend.slider"></slider>
         <recommend-tabs></recommend-tabs>
-        <song-list></song-list>
+        <song-list :recommendSongList="recommend.songList"></song-list>
         <radio-list :recommendRadio="recommend.radioList"></radio-list>
+        <m-footer></m-footer>
       </div>
     </scroll>
   </div>
 </template>
 
 <script>
+import MFooter from '@/base/m-footer'
+import Loading from '@/base/loading'
 import {getRecommend} from 'api/recommend'
 import Scroll from '@/base/scroll'
 import Slider from 'components/recommend/slider'
@@ -25,7 +29,9 @@ export default {
     RecommendTabs,
     SongList,
     Scroll,
-    RadioList
+    RadioList,
+    Loading,
+    MFooter
   },
   data () {
     return {
@@ -46,6 +52,7 @@ export default {
   watch: {
     recommend () {
       this.getData = true
+      console.log(this.recommend)
     }
   }
 }
@@ -57,7 +64,9 @@ export default {
   position: fixed
   top: 74px
   bottom: 0
-  background: $color-theme-background = #f4f4f4
+  width: 100%
+  color: $color-text-ll
+  background: $color-background-d
   .recommend-content
    height: 100%
    overflow: hidden

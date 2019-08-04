@@ -1,6 +1,8 @@
 const state = {
   singer: {},
-  singerContent: {}
+  songlistId: {},
+  singerContent: {},
+  song: {}
 }
 
 export default state

@@ -2,7 +2,7 @@
   <div class="mt-1 mb-4">
     <div class="song-list">
       <div class="song-list-title mt-1">推荐歌单</div>
-      <div v-for="(item, index) in songList" :key="index" class="song-list-item">
+      <div @click="selectItem(item)" v-for="(item, index) in songList" :key="index" class="song-list-item">
         <div>
           <img :src="item.picUrl" width="100%">
           <span>{{ item.accessnum }}</span>
@@ -38,6 +38,9 @@ export default {
         }
         item.accessnum = item.accessnum + '万'
       })
+    },
+    selectItem: function (item) {
+      this.$emit('select', item)
     }
   }
 }

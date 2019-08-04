@@ -21,7 +21,7 @@ export default {
 
 <style scoped lang="stylus" ref="stylesheet/stylus">
 @import "~common/stylus/variable"
-
+@import "~common/stylus/mixin"
 .content-view
  position: fixed
  top: 0
@@ -29,5 +29,6 @@ export default {
  right: 0
  bottom: 0
  background-image: url("./assets/bg-1.jpg")
+ my-background()
  z-index: 2
 </style>

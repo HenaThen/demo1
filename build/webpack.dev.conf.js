@@ -110,6 +110,30 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           res.json(response.data)
         })
       })
+      app.get('/app/songlistDetail', (req, res) => {
+        const url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
+        axios.get(url, {
+          headers: {
+            referer: 'https://y.qq.com/portal/playlist.html'
+          },
+          params: req.query
+        }).then((response) => {
+          res.json(response.data)
+        })
+      })
+      app.get('/app/song', (req, res) => {
+        const url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg'
+        axios.get(url, {
+          headers: {
+            referer: 'https://y.qq.com/',
+            origin: 'https://y.qq.com',
+            'Content-type': 'application/x-www-form-urlencoded'
+          },
+          params: req.query
+        }).then((response) => {
+          res.json(response.data)
+        })
+      })
     },
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.

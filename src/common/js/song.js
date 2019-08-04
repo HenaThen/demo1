@@ -28,7 +28,7 @@ export function createSong (musicData) {
 }
 
 // 获得歌手名字的拼接
-function filterSinger (array) {
+export function filterSinger (array) {
   let name = ''
   array.forEach((item, index) => {
     if (index > 0) {

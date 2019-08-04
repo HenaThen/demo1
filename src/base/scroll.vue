@@ -16,6 +16,10 @@ export default {
     listenScroll: {
       type: Boolean,
       default: false
+    },
+    getData: {
+      type: Boolean,
+      default: false
     }
   },
   data () {

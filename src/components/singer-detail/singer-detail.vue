@@ -3,7 +3,7 @@
     <div class="singer-detail">
       <div class="singer-detail-header">
         <div class="header-nav mt-1">
-          <img @click="goBackSingerList()" src="./back.png">
+          <img @click="goBackSingerList()" src="@/assets/back.png">
           <span class="ml-3">{{ singer.singer_name }}</span>
         </div>
         <div class="header-img mt-1">
@@ -95,7 +95,6 @@ export default {
         }
       } else if (handle === 'SingerInfo') {
         this.view = handle
-        this.setSingerContent('111')
       } else if (handle === 'SingerAudio') {
         this.view = handle
       }
@@ -152,6 +151,7 @@ export default {
 
 <style scoped lang="stylus">
 @import "~common/stylus/variable"
+@import "~common/stylus/mixin"
 @keyframes opacity-change
  0%
   opacity 0
@@ -165,6 +165,7 @@ export default {
  bottom: 0
  width: 100%
  background-image: url("../../assets/bg-1.jpg")
+ my-background()
  z-index: -2
 .singer-detail:after
  content: ""

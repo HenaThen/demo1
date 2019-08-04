@@ -5,11 +5,14 @@
       <div>
         <slider :recommendSlider="recommend.slider"></slider>
         <recommend-tabs></recommend-tabs>
-        <song-list :recommendSongList="recommend.songList"></song-list>
+        <song-list @select="showSongListDetail" :recommendSongList="recommend.songList"></song-list>
         <radio-list :recommendRadio="recommend.radioList"></radio-list>
         <m-footer></m-footer>
       </div>
     </scroll>
+    <transition name="slide" appear>
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -21,7 +24,9 @@ import Scroll from '@/base/scroll'
 import Slider from 'components/recommend/slider'
 import RecommendTabs from 'components/recommend/recommend-tabs'
 import SongList from 'components/recommend/song-list'
+import songlistDetail from 'components/song-list/songlist-detail'
 import RadioList from 'components/recommend/radio-list'
+import {mapMutations} from 'vuex'
 
 export default {
   components: {
@@ -31,12 +36,15 @@ export default {
     Scroll,
     RadioList,
     Loading,
-    MFooter
+    MFooter,
+    songlistDetail
   },
   data () {
     return {
       recommend: [],
-      getData: null
+      getData: null,
+      songList: [],
+      listshow: false
     }
   },
   created () {
@@ -47,12 +55,20 @@ export default {
       getRecommend().then((res) => {
         this.recommend = res.data
       })
-    }
+    },
+    showSongListDetail: function (data) {
+      this.setSonglistId(data.id)
+      this.$router.push({
+        path: `/recommend/${data.id}`
+      })
+    },
+    ...mapMutations({
+      setSonglistId: 'setSonglistId'
+    })
   },
   watch: {
     recommend () {
       this.getData = true
-      console.log(this.recommend)
     }
   }
 }
@@ -70,4 +86,10 @@ export default {
   .recommend-content
    height: 100%
    overflow: hidden
+
+.slide-enter-active, .slide-leave-active
+ transition: all .5s
+
+.slide-enter, .slide-leave-to
+  transform: translateX(100%)
 </style>

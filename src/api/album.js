@@ -23,7 +23,7 @@ export function getAlbummid (array) {
 
 // 通过专辑ID获取专辑信息
 export function getAlbumInfo (albummid) {
-  const url = debug ? '/api/album' : 'http://localhost:9000/api/album'
+  const url = debug ? '/api/album' : 'http://39.108.189.17/api/album'
   const data = Object.assign({}, {
     albummid: albummid
   })

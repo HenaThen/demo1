@@ -2,7 +2,7 @@ import {apiCommonParam, ERR_OK} from 'api/config'
 import axios from 'axios'
 const debug = process.env.NODE_ENV !== 'production'
 export function getSonglistDetail (id) {
-  const url = debug ? '/api/songlistDetail' : 'http://localhost:9000/api/songlistDetail'
+  const url = debug ? '/api/songlistDetail' : 'http://39.108.189.17/api/songlistDetail'
   const data = Object.assign({}, apiCommonParam, {
     type: 1,
     json: 1,

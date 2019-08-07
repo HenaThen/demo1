@@ -27,7 +27,7 @@ export function newGetSingerList () {
       }
     })
   })
-  const url = debug ? '/api/singerList' : 'http://localhost:9000/api/singerList'
+  const url = debug ? '/api/singerList' : 'http://39.108.189.17/api/singerList'
   return axios.get(url, {
     params: data
   }).then((res) => {
@@ -40,7 +40,7 @@ export function newGetSingerList () {
 // 获取歌手详情
 export function getSingerDetail (singerMid) {
   const url = '/api/singerDetail'
-
+  const url = debug ? '/api/singerDetail' : 'http://39.108.189.17/api/singerDetail'
   const data = Object.assign({}, apiCommonParam, {
     hostUin: 0,
     needNewCode: 0,

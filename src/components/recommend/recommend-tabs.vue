@@ -1,11 +1,11 @@
 <template>
   <div class="row action mt-1">
-    <div class="col-3 text-center divxx" v-for="(item, index) in tabsData" :key="index" @click="action(item.action)">
+    <a class="col-3 text-center divxx" v-for="(item, index) in tabsData" :key="index" @click="action(item.action)">
       <div class="yuan p-1 mx-auto">
         <img :src="item.picUrl" width="65%" class="mx-auto">
       </div>
       <span>{{ item.name }}</span>
-    </div>
+    </a>
   </div>
 </template>
 
@@ -50,6 +50,7 @@ export default {
   .row
    margin: $margin-0
   .divxx
+   display: block
    height: 0
    padding:0 0 25% 0
    overflow: hidden

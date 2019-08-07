@@ -1,8 +1,8 @@
 {
   "tabsData": [
-    {"name": "私人FM", "picUrl": "/1.png"},
-    {"name": "每日推荐", "picUrl": "/2.png"},
-    {"name": "歌单", "picUrl": "/3.png"},
-    {"name": "排行榜", "picUrl": "/4.png"}
+    {"name": "私人FM", "picUrl": "/1.png", "action": "none"},
+    {"name": "每日推荐", "picUrl": "/2.png","action": "none"},
+    {"name": "歌单", "picUrl": "/3.png", "action": "none"},
+    {"name": "排行榜", "picUrl": "/4.png", "action": "toplist"}
   ]
 }

@@ -3,7 +3,7 @@
     <scroll class="song-list">
       <div>
         <ul class="song-list-ul">
-          <li class="song-list-item mt-3" v-for="(item, index) in singerContent" :key="index">
+          <li @click="select(item)" class="song-list-item mt-3" v-for="(item, index) in singerContent" :key="index">
             <div class="index-1">{{ index }}</div>
             <div class="index-2">
               <p class="song-name">{{ item.songname }}</p>
@@ -22,15 +22,29 @@
 
 <script>
 import Scroll from '@/base/scroll'
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'singerContent'
+      'singerContent',
+      'songlistId',
+      'song'
     ])
   },
   components: {
     Scroll
+  },
+  methods: {
+    select (song) {
+      console.log(song)
+      this.setSong(song)
+      if (song === this.song) {
+        this.$router.push('/player')
+      }
+    },
+    ...mapMutations({
+      setSong: 'setSong'
+    })
   }
 }
 </script>

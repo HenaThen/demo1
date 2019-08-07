@@ -1,25 +1,22 @@
 import axios from 'axios'
+import {apiCommonParam} from 'api/config'
+const debug = process.env.NODE_ENV !== 'production'
 export function getSongVkey (songmid) {
-  const url = '/app/song'
-  const data = Object.assign({}, {
-    g_tk: '1278911659',
+  const url = debug ? '/api/songkey' : 'http://localhost:9000/api/songkey'
+  let data = Object.assign({}, apiCommonParam, {
+    guid: 664453904,
     hostUin: 0,
-    format: 'jsonp',
-    callback: 'callback',
-    inCharset: 'utf8',
-    outCharset: 'utf-8',
-    notice: 0,
-    platform: 'yqq',
+    platform: 'h5',
+    uin: 4859,
     needNewCode: 0,
-    cid: '205361747',
-    uin: 0,
+    cid: 205361747,
     songmid: songmid,
-    filename: `C400${songmid}.m4a`,
-    guid: '3655047200'
+    filename: `C400${songmid}.m4a`
   })
+
   return axios.get(url, {
     params: data
   }).then((res) => {
-    return res.data
+    return res.data.data
   })
 }

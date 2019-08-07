@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {apiCommonParam, ERR_OK} from 'api/config'
-
+const debug = process.env.NODE_ENV !== 'production'
 // 新的歌手数据接口
 export function newGetSingerList () {
   let data = Object.assign({}, apiCommonParam, {
@@ -27,7 +27,7 @@ export function newGetSingerList () {
       }
     })
   })
-  const url = '/api/test'
+  const url = debug ? '/api/singerList' : 'http://localhost:9000/api/singerList'
   return axios.get(url, {
     params: data
   }).then((res) => {
@@ -39,7 +39,7 @@ export function newGetSingerList () {
 
 // 获取歌手详情
 export function getSingerDetail (singerMid) {
-  const url = '/app/singerDetail'
+  const url = '/api/singerDetail'
 
   const data = Object.assign({}, apiCommonParam, {
     hostUin: 0,

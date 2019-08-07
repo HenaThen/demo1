@@ -2,7 +2,7 @@
   <div id="app">
     <div class="content-view">
       <m-header></m-header>
-      <keep-alive>
+      <keep-alive exclude="player">
         <router-view></router-view>
       </keep-alive>
     </div>
@@ -11,7 +11,6 @@
 
 <script>
 import MHeader from 'components/m-header/m-header'
-
 export default {
   components: {
     MHeader

@@ -58,21 +58,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           console.log(e)
         })
       })
-      app.get('/api/singerList', (req,res) => {
-        const url = 'https://c.y.qq.com/v8/fcg-bin/v8.fcg'
-        axios.get(url, {
-          headers: {
-            referer: 'https://c.y.qq.com/',
-            host: 'c.y.qq.com'
-          },
-          params: req.query
-        }).then((response) => {
-          res.json(response.data)
-        }).catch((e) => {
-          console.log(e)
-        })
-      })
-      app.get('/app/singerDetail', (req, res) => {
+      app.get('/api/singerDetail', (req, res) => {
         const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg'
         axios.get(url, {
           headers: {
@@ -86,7 +72,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           console.log(e)
         })
       })
-      app.get('/api/test', (req, res) => {
+      app.get('/api/singerList', (req, res) => {
         const url = 'https://u.y.qq.com/cgi-bin/musicu.fcg'
         axios.get(url, {
           headers: {
@@ -110,7 +96,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           res.json(response.data)
         })
       })
-      app.get('/app/songlistDetail', (req, res) => {
+      app.get('/api/songlistDetail', (req, res) => {
         const url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
         axios.get(url, {
           headers: {
@@ -121,13 +107,24 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           res.json(response.data)
         })
       })
-      app.get('/app/song', (req, res) => {
+      app.get('/api/toplist', (req, res) => {
+        const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg'
+        axios.get(url, {
+          headers: {
+            referer: 'https://y.qq.com/',
+            origin: 'https://y.qq.com'
+          },
+          params: req.query
+        }).then((response) => {
+          res.json(response.data)
+        })
+      })
+      app.get('/api/songkey', (req, res) => {
         const url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg'
         axios.get(url, {
           headers: {
             referer: 'https://y.qq.com/',
-            origin: 'https://y.qq.com',
-            'Content-type': 'application/x-www-form-urlencoded'
+            origin: 'https://y.qq.com'
           },
           params: req.query
         }).then((response) => {

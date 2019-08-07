@@ -21,9 +21,9 @@
       </div>
       <scroll ref="scroll" :getData="getData" :listenScroll="listenScroll" :probeType="probeType" @scroll="myScroll">
         <ul class="cdlist-list">
-          <li @click="select(item.mid)" class="cdlist-item" v-for="(item, index) in songList.songlist" :key="index">
-            <p class="song-name">{{item.name}}</p>
-            <p class="singer-name">{{item.songsinger}}</p>
+          <li @click="select(item)" class="cdlist-item" v-for="(item, index) in songList.songlist" :key="index">
+            <p class="song-name">{{item.songname}}</p>
+            <p class="singer-name">{{item.singer}}</p>
           </li>
         </ul>
       </scroll>
@@ -37,7 +37,7 @@ import Loading from '@/base/loading'
 import Scroll from '@/base/scroll'
 import {mapGetters, mapMutations} from 'vuex'
 import {getSonglistDetail} from 'api/songlist'
-import {filterSinger} from 'common/js/song'
+import {createSong} from 'common/js/song'
 export default {
   components: {
     Loading,
@@ -45,7 +45,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'songlistId'
+      'songlistId',
+      'song'
     ])
   },
   data () {
@@ -74,10 +75,24 @@ export default {
         setTimeout(() => {
           this.setScrollHeight()
         })
+        let map = []
         this.songList.songlist.forEach((item) => {
-          item['songsinger'] = filterSinger(item.singer)
+          var musicData = {
+            songid: item.id,
+            songmid: item.mid,
+            songname: item.name,
+            albumid: item.album.id,
+            albummid: item.album.mid,
+            albumname: item.album.name,
+            albumdesc: '',
+            singer: item.singer,
+            interval: ''
+          }
+          map.push(createSong(musicData))
         })
+        this.songList.songlist = map
         console.log(this.songList)
+        // console.log(this.songList)
       })
     },
     myScroll (e) {
@@ -95,12 +110,14 @@ export default {
       var finalH = initH - redunceH
       this.$refs['scroll'].$refs.wrapper.style.height = finalH + 'px'
     },
-    select (songmid) {
-      this.setSongmid(songmid)
-      this.$router.push('/player')
+    select (song) {
+      this.setSong(song)
+      if (song === this.song) {
+        this.$router.push('/player')
+      }
     },
     ...mapMutations({
-      setSongmid: 'setSongmid'
+      setSong: 'setSong'
     })
   },
   watch: {

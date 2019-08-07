@@ -27,6 +27,7 @@ import SongList from 'components/recommend/song-list'
 import songlistDetail from 'components/song-list/songlist-detail'
 import RadioList from 'components/recommend/radio-list'
 import {mapMutations} from 'vuex'
+import TopList from 'components/top-list/top-list'
 
 export default {
   components: {
@@ -37,7 +38,8 @@ export default {
     RadioList,
     Loading,
     MFooter,
-    songlistDetail
+    songlistDetail,
+    TopList
   },
   data () {
     return {
@@ -59,7 +61,7 @@ export default {
     showSongListDetail: function (data) {
       this.setSonglistId(data.id)
       this.$router.push({
-        path: `/recommend/${data.id}`
+        path: `/recommend/cdlist`
       })
     },
     ...mapMutations({

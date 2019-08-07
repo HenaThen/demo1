@@ -1,6 +1,6 @@
 <template>
   <div class="row action mt-1">
-    <div class="col-3 text-center divxx" v-for="(item, index) in tabsData" :key="index">
+    <div class="col-3 text-center divxx" v-for="(item, index) in tabsData" :key="index" @click="action(item.action)">
       <div class="yuan p-1 mx-auto">
         <img :src="item.picUrl" width="65%" class="mx-auto">
       </div>
@@ -31,6 +31,13 @@ export default {
           })
         }
       })
+    },
+    action: function (action) {
+      if (action !== 'none') {
+        this.$router.push(`recommend/${action}`)
+      } else {
+        alert('暂未开放')
+      }
     }
   }
 }

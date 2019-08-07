@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {ERR_OK} from 'api/config'
-
+const debug = process.env.NODE_ENV !== 'production'
 // 获取专辑ID
 export function getAlbummid (array) {
   let map = []
@@ -23,7 +23,7 @@ export function getAlbummid (array) {
 
 // 通过专辑ID获取专辑信息
 export function getAlbumInfo (albummid) {
-  const url = '/api/album'
+  const url = debug ? '/api/album' : 'http://localhost:9000/api/album'
   const data = Object.assign({}, {
     albummid: albummid
   })

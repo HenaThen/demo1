@@ -10,8 +10,8 @@ const mutations = {
   [types.SET_SONGLIST_ID] (state, id) {
     state.songlistId = id
   },
-  [types.SET_SONGMID] (state, mid) {
-    state.song.mid = mid
+  [types.SET_SONG] (state, song) {
+    state.song = song
   }
 }
 

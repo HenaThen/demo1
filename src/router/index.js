@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Recommend from 'components/recommend/recommend'
 import Singer from 'components/singer/singer'
 import Radio from 'components/radio/radio'
+import TopList from 'components/top-list/top-list'
 import Player from 'components/player/player'
 import SingerDetail from 'components/singer-detail/singer-detail'
 import SonglistDetail from 'components/song-list/songlist-detail'
@@ -20,8 +21,12 @@ export default new Router({
       component: Recommend,
       children: [
         {
-          path: ':id',
+          path: 'cdlist',
           component: SonglistDetail
+        },
+        {
+          path: 'toplist',
+          component: TopList
         }
       ]
     },
